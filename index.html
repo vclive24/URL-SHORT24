@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ST-URL - URL Shortener</title>
+    <style>
+        /* Add your custom CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>ST-URL - URL Shortener</h1>
+    <form id="shortenForm">
+        <input type="url" id="originalUrlInput" placeholder="Enter URL to shorten" required>
+        <button type="submit">Shorten</button>
+    </form>
+
+    <div id="shortenedUrlContainer">
+        <h3>Shortened URL:</h3>
+        <a id="shortenedUrlLink" href="" target="_blank"></a>
+    </div>
+    <script>
+    function generateRedirectUrl() {
+  const longUrl = document.getElementById("long-url").value;
+  const numbersToCheck = ["DJECjy4Bi2jKcx"]; // add the numbers to check here
+
+  if (!numbersToCheck.some(num => longUrl.includes(num))) {
+    alert("This URL does not shorten without registration. Please contact AMAN- +8801773633328 (WhatsApp) or shek_Mony- +8801716372108 (WhatsApp).");
+    return;
+  }
+
+  const event = "comments";
+  const redirToken = "QUFFLUhqbDdmVkxaTEQ3aWVTcVJUNDhGb2xHUkotWVg4Z3xBQ3Jtc0trVWhSUUhHS05DUF85Ql9td2lOMmlTNkEzWmFON09NTnA1OHZVbG5Sd0hPLVpwSi1ubEZJdzFNWVVyQTlibW9wZFp5N1lUdWdmd25XVGc0bms4dF9yZXBTVmd5aUhmVHNNdzU5cjFGb0VjMFQtVHlLRQ&q";
+  const redirectUrl = "https://m.youtube.com/redirect?q=" + encodeURIComponent(longUrl) + "&event=" + event + "&redir_token=" + redirToken + "&html_redirect=ZA";
+
+    <script>
+        // Add your Bitly API key here
+        const apiKey = '3c2ca225f4ee7f1bb11189693d1f490b88d2bedc';
+
+        const shortenForm = document.getElementById('shortenForm');
+        const originalUrlInput = document.getElementById('originalUrlInput');
+        const shortenedUrlLink = document.getElementById('shortenedUrlLink');
+
+        shortenForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const originalUrl = originalUrlInput.value;
+            shortenUrl(originalUrl);
+        });
+
+        function shortenUrl(originalUrl) {
+            const apiUrl = `https://api-ssl.bitly.com/v4/shorten`;
+            const body = {
+                long_url: originalUrl
+            };
+            const headers = {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            };
+
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(body)
+            })
+            .then(response => response.json())
+            .then(data => {
+                const shortenedUrl = data.link;
+                shortenedUrlLink.href = shortenedUrl;
+                shortenedUrlLink.textContent = shortenedUrl;
+                document.getElementById('shortenedUrlContainer').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
